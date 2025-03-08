@@ -6,12 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "eslint": "eslint",
+    "eslint:fix": "yarn eslint --fix",
+    "stylelint": "stylelint --allow-empty-input \"**/*.{css,scss}\"",
+    "stylelint:fix": "yarn stylelint --fix",
+    "type-check": "tsc --noEmit",
+    "lint": "yarn type-check && yarn eslint && yarn stylelint"
   },
   "dependencies": {
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.8.2",
+    "postcss-scss": "^4.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.3.0"

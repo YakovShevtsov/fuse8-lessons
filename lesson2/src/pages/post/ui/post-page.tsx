@@ -1,4 +1,5 @@
 import Button from '../../../shared/ui/button/button';
+import Error from '../../../shared/ui/error/error';
 import useRandomPostTitle from '../api/use-random-post-title';
 
 const PostPage = () => {
@@ -8,7 +9,7 @@ const PostPage = () => {
     <article>
       <h1>Random post title!</h1>
 
-      {error && <p>{error}</p>}
+      {error && <Error message={error} />}
       {postTitle ? (
         <p>{postTitle}</p>
       ) : (

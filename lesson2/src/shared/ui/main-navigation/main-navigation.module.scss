@@ -1,23 +1,23 @@
 .header {
-  max-width: 60rem;
-  margin: auto;
-  padding: 2rem;
   display: flex;
   justify-content: center;
+  max-width: 60rem;
+  padding: 2rem;
+  margin: auto;
 }
 
 .list {
   display: flex;
   gap: 1rem;
-}
 
-.list a {
-  text-decoration: none;
-  color: var(--color-primary-500);
-}
+  a {
+    color: var(--color-primary-500);
+    text-decoration: none;
 
-.list a:hover,
-.list a.active {
-  color: var(--color-primary-400);
-  text-decoration: underline;
+    &:hover,
+    &.active {
+      color: var(--color-primary-400);
+      text-decoration: underline;
+    }
+  }
 }

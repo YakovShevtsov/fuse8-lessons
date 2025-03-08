@@ -18,7 +18,7 @@ export const useRandomPostTitle = () => {
     setError(null);
     setLoading(true);
     try {
-      const response = await apiClient.get<Post[]>('/posts');
+      const response = await apiClient.get<Post[]>('/postsdsds');
 
       if (!response.data.length) {
         throw new Error('No posts found. Please try again later.');
@@ -34,7 +34,7 @@ export const useRandomPostTitle = () => {
         const statusCode = error.response?.status;
 
         if (statusCode === 404) {
-          setError('No posts found. Please try again later.');
+          setError('Cannot find posts. Please try again later.');
         } else if (statusCode === 500) {
           setError('Server error! Please try again later.');
         } else {
@@ -43,12 +43,6 @@ export const useRandomPostTitle = () => {
               'An unexpected error occurred. Please try again later.'
           );
         }
-      }
-
-      if (error instanceof Error) {
-        setError(
-          error.message || 'An unknown error occurred. Please try again later'
-        );
       }
     } finally {
       setLoading(false);
