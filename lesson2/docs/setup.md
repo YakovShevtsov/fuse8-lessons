@@ -8,15 +8,15 @@
 ## Installation
 
 1. Clone the repository:
-  git clone https://github.com/your-username/lesson2.git
+- git clone https://github.com/your-username/lesson2.git
 
 2. Install dependencies. Make sure Yarn and Node.js installed, then run
-  yarn install
+- yarn install
 
 3. Start development server
-  yarn dev
+- yarn dev
 
-  The app will be available at http://localhost:3000
+- The app will be available at http://localhost:3000
 
 ## Available scripts
 
