@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { apiClient } from '@shared/services/request';
 import axios from 'axios';
 
+const DEFAULT_ERROR = 'An unexpected error occurred. Please try again later.';
 interface Post {
   userId: number;
   id: number;
@@ -18,7 +19,7 @@ export const useRandomPostTitle = () => {
     setError(null);
     setLoading(true);
     try {
-      const response = await apiClient.get<Post[]>('/postsdsds');
+      const response = await apiClient.get<Post[]>('/posts');
 
       if (!response.data.length) {
         throw new Error('No posts found. Please try again later.');
@@ -38,11 +39,10 @@ export const useRandomPostTitle = () => {
         } else if (statusCode === 500) {
           setError('Server error! Please try again later.');
         } else {
-          setError(
-            error.message ||
-              'An unexpected error occurred. Please try again later.'
-          );
+          setError(error.message || DEFAULT_ERROR);
         }
+      } else if (error instanceof Error) {
+        setError(error.message || DEFAULT_ERROR);
       }
     } finally {
       setLoading(false);

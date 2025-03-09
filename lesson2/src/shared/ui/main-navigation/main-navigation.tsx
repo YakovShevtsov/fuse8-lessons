@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router';
 import classes from './main-navigation.module.scss';
+import { routes } from '@shared/services/routes';
 
 const MainNavigation = () => {
   return (
@@ -8,7 +9,7 @@ const MainNavigation = () => {
         <ul className={classes.list}>
           <li>
             <NavLink
-              to="/"
+              to={routes.main.getLink()}
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
@@ -19,7 +20,7 @@ const MainNavigation = () => {
           </li>
           <li>
             <NavLink
-              to="/random-post"
+              to={routes.post.getLink()}
               className={({ isActive }) =>
                 isActive ? classes.active : undefined
               }
