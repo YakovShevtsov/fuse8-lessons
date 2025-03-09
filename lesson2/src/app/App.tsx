@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import MainPage from '../pages/home/ui/home-page';
+import MainPage from '@pages/home/ui/home-page';
 import './index.css';
-import RootLayout from '../pages/root/root';
-import PostPage from '../pages/post/ui/post-page';
+import RootLayout from '@pages/root/root';
+import PostPage from '@pages/post/ui/post-page';
 
 const router = createBrowserRouter([
   {

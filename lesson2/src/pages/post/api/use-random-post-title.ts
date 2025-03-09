@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { apiClient } from '../../../shared/services/request';
+import { apiClient } from '@shared/services/request';
 import axios from 'axios';
 
 interface Post {
