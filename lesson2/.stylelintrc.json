@@ -4,5 +4,6 @@
     "stylelint-config-prettier-scss",
     "stylelint-config-recess-order"
   ],
-  "plugins": ["stylelint-order", "stylelint-scss"]
+  "plugins": ["stylelint-order"]
 }
+
