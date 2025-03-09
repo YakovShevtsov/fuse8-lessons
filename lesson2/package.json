@@ -15,18 +15,17 @@
     "lint": "yarn type-check && yarn eslint && yarn stylelint"
   },
   "dependencies": {
-    "@types/node": "^22.13.10",
-    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.8.2",
-    "postcss-scss": "^4.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/node": "^22.13.10",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@types/react-router-dom": "^5.3.3",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.21.0",
     "eslint-config-prettier": "^10.0.2",
@@ -34,13 +33,15 @@
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "postcss": "^8.4.29",
     "prettier": "^3.5.3",
-    "sass-embedded": "^1.85.1",
+    "sass": "^1.85.1",
     "stylelint": "^16.15.0",
     "stylelint-config-prettier-scss": "^1.0.0",
     "stylelint-config-recess-order": "^6.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-order": "^6.0.4",
+    "stylelint-scss": "^6.11.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
     "vite": "^6.2.0"

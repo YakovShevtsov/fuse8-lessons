@@ -16,3 +16,5 @@ Simple React-based web application with two pages: a home page and a random post
 - **TypeScript**: For static type checking. 🔍
 - **SCSS**: For styling with SASS syntax. 🎨
 - **ESLint, Stylelint, Prettier**: For linting and code formatting. 🧹
+
+## API: https://jsonplaceholder.typicode.com/
