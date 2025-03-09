@@ -20,12 +20,12 @@ The app will be available at http://localhost:3000
 
 ## Available scripts
 
-  dev: Starts the development server with Vite
-  build: Builds the project for production
-  preview: Previews the built project
-  eslint: Runs ESLint for linting the code
-  eslint:fix: Automatically fixes linting issues
-  stylelint: Runs Stylelint for SCSS/CSS linting
-  stylelint:fix: Automatically fixes stylelint issues
-  type-check: Runs TypeScript type checking
-  lint: Runs type-checking, ESLint, and Stylelint together
+  dev: Starts the development server with Vite  
+  build: Builds the project for production  
+  preview: Previews the built project  
+  eslint: Runs ESLint for linting the code  
+  eslint:fix: Automatically fixes linting issues  
+  stylelint: Runs Stylelint for SCSS/CSS linting  
+  stylelint:fix: Automatically fixes stylelint issues  
+  type-check: Runs TypeScript type checking  
+  lint: Runs type-checking, ESLint, and Stylelint together  
