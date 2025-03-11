@@ -10,8 +10,10 @@ interface Post {
   body: string;
 }
 
+const POSTS_AMOUNT = 100;
+
 export const useRandomPostTitle = () => {
-  const [postTitle, setPostTitle] = useState('');
+  const [post, setPost] = useState<Post | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -19,24 +21,26 @@ export const useRandomPostTitle = () => {
     setError(null);
     setLoading(true);
     try {
-      const response = await apiClient.get<Post[]>(`${apiEndPoints.posts}`);
+      const randomPostId = Math.floor(Math.random() * POSTS_AMOUNT) + 1;
 
-      if (!response.data.length) {
-        throw new Error('No posts found. Please try again later.');
+      const response = await apiClient.get<Post>(
+        `${apiEndPoints.posts}/${randomPostId}`
+      );
+
+      if (!response.data) {
+        throw new Error('Cant find post. Please try again later.');
       }
 
-      const randomIndex = Math.floor(Math.random() * response.data.length);
-
-      setPostTitle(response.data[randomIndex].title);
+      setPost(response.data);
     } catch (error: unknown) {
-      setPostTitle('');
+      setPost(null);
       setError(handleApiError(error));
     } finally {
       setLoading(false);
     }
   };
 
-  return { fetchPostTitle, postTitle, loading, error };
+  return { fetchPostTitle, postTitle: post?.title, loading, error };
 };
 
 export default useRandomPostTitle;
