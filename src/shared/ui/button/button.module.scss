@@ -1,13 +1,13 @@
 .button {
   height: 3rem;
   padding: 0 2rem;
-  font-size: 1.15em;
+  font-size: 1.15rem;
   font-weight: 700;
   color: #242424;
   text-align: center;
   cursor: pointer;
   background-color: var(--color-primary-500);
-  border-radius: 8px;
+  border-radius: 0.5rem;
 
   &:hover {
     background-color: var(--color-primary-400);
