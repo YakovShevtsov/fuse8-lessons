@@ -1,12 +1,14 @@
-import { ButtonHTMLAttributes } from 'react';
+import classNames from 'classnames';
 import classes from './button.module.scss';
 
-const Button = ({
-  children,
-  ...props
-}: ButtonHTMLAttributes<HTMLButtonElement>) => {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Button = ({ children, className, ...props }: ButtonProps) => {
   return (
-    <button className={classes.button} {...props}>
+    <button className={classNames(classes.button, className)} {...props}>
       {children}
     </button>
   );
