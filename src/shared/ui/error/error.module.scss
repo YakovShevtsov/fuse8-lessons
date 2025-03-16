@@ -1,15 +1,15 @@
 @use '@shared/styles/mixins.scss' as *;
 
 .error {
-  max-width: 31.25rem;
-  padding: 1rem;
-  margin: 1rem auto;
-  font-size: 1.15rem;
+  max-width: 500px;
+  padding: 16px;
+  margin: 16px auto;
+  font-size: var(--font-size-md);
   font-weight: 700;
   color: #942531;
   word-wrap: break-word;
   background-color: #f8d7da;
-  border-radius: 1rem;
+  border-radius: 16px;
   @include flex-center(column, 16px);
 
   .error-message {

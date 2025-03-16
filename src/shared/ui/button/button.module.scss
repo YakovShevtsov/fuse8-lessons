@@ -2,7 +2,7 @@
 
 .button {
   padding: 16px 32px;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: 700;
   color: var(--color-secondary-800);
   text-align: center;

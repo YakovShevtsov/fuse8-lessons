@@ -1,6 +1,5 @@
+@use '@shared/styles/mixins' as *;
+
 .error-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  @include flex-center(column, 8px);
 }
