@@ -1,13 +1,18 @@
+@use '@shared/styles/mixins' as *;
+@use '@shared/styles/breakpoints-mixins' as *;
+
 .cards-container {
-  display: flex;
   flex-wrap: wrap;
-  gap: 32px;
-  justify-content: center;
   width: 100%;
+  @include flex-center(row, 16px);
 
   .card-landing {
     width: 100%;
     max-width: 320px;
+
+    @include tablet {
+      max-width: 420px;
+    }
 
     .card-title {
       margin: 0;

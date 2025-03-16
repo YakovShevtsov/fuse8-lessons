@@ -7,22 +7,23 @@ const PostPage = () => {
   const { fetchPostTitle, postTitle, loading, error } = useRandomPostTitle();
 
   return (
-    <div className={styles['post-page']}>
-      <h1>Random post title!</h1>
-      <article>
-        {error && <Error message={error} />}
-        {postTitle ? (
-          <p>{postTitle}</p>
-        ) : (
-          <Button
-            className={styles['random-post-btn']}
-            onClick={fetchPostTitle}
-            disabled={loading}
-          >
-            {loading ? 'Loading...' : 'Generate title'}
-          </Button>
-        )}
-      </article>
+    <div className="container">
+      <h1 className={styles['post-page-title']}>Random post title!</h1>
+
+      {error && <Error message={error} />}
+      {postTitle ? (
+        <article>
+          <p className={styles['random-post-title']}>{postTitle}</p>
+        </article>
+      ) : (
+        <Button
+          className={styles['random-post-btn']}
+          onClick={fetchPostTitle}
+          disabled={loading}
+        >
+          {loading ? 'Loading...' : 'Generate title'}
+        </Button>
+      )}
     </div>
   );
 };

@@ -1,4 +1,9 @@
-.example-homework {
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
+.landing-page {
+  h2 {
+    font-size: var(--font-size-xl);
+  }
+
+  h3 {
+    font-size: var(--font-size-lg);
+  }
 }

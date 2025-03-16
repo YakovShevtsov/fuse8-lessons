@@ -1,14 +1,21 @@
+@use '@shared/styles/mixins' as *;
+@use '@shared/styles/breakpoints-mixins' as *;
+
 .header {
-  display: flex;
-  justify-content: center;
   max-width: 60rem;
-  padding: 2rem;
+  padding: 1rem;
   margin: auto;
+  @include tablet {
+    padding: 2rem;
+  }
 }
 
 .list {
-  display: flex;
-  gap: 1rem;
+  @include flex-center(column, 16px);
+  @include tablet {
+    flex-direction: row;
+    gap: 8px;
+  }
 
   a {
     padding: 4px;

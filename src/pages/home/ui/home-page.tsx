@@ -2,8 +2,8 @@ import styles from './home-page.module.scss';
 
 const HomePage = () => {
   return (
-    <div className={styles['home-page']}>
-      <h1>Main Page!</h1>
+    <div className="container">
+      <h1 className={styles['home-page-title']}>Home Page!</h1>
     </div>
   );
 };

@@ -1,7 +1,6 @@
+@use '@shared/styles/mixins.scss' as *;
+
 .error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   max-width: 31.25rem;
   padding: 1rem;
   margin: 1rem auto;
@@ -11,6 +10,7 @@
   word-wrap: break-word;
   background-color: #f8d7da;
   border-radius: 1rem;
+  @include flex-center(column, 16px);
 
   .error-message {
     flex-grow: 1;
