@@ -1,10 +1,12 @@
 import Screen from '@shared/ui/screen/screen';
 import styles from './cards-section.module.scss';
 import Card from '@shared/ui/card/card';
+import { forwardRef } from 'react';
 
-const CardsSection = () => {
+const CardsSection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <Screen
+      ref={ref}
       id="second-screen"
       style={{ backgroundColor: 'var(--color-secondary-700)' }}
     >
@@ -21,6 +23,6 @@ const CardsSection = () => {
       </div>
     </Screen>
   );
-};
+});
 
 export default CardsSection;
