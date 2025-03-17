@@ -1,5 +1,6 @@
 :root {
-  // colors
+  /* colors variables */
+
   --color-primary-500: #f97316;
   --color-primary-400: #fb923c;
   --color-primary-300: #fdba74;
@@ -7,8 +8,11 @@
   --color-secondary-800: #262626;
   --color-secondary-700: #44403c;
   --color-secondary-600: #525252;
+  --color-error-500: #dc2626;
+  --color-error-100: #fee2e2;
 
-  // font sizes
+  /* font-sizes variables */
+
   --font-size-xs: 0.5rem; /* 8px */
   --font-size-sm: 0.75rem; /* 12px */
   --font-size-md: 1rem; /* 16px */

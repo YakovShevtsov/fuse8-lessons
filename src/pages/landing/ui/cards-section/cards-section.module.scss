@@ -5,22 +5,22 @@
   flex-wrap: wrap;
   width: 100%;
   @include flex-center(row, 16px);
+}
 
-  .card-landing {
-    width: 100%;
-    max-width: 320px;
+.card-landing {
+  width: 100%;
+  max-width: 320px;
 
-    @include tablet {
-      max-width: 420px;
-    }
+  @include tablet {
+    max-width: 420px;
+  }
 
-    .card-title {
-      margin: 0;
-    }
+  .card-title {
+    margin: 0;
+  }
 
-    .card-description {
-      margin-top: 8px;
-      margin-bottom: 0;
-    }
+  .card-description {
+    margin-top: 8px;
+    margin-bottom: 0;
   }
 }

@@ -1,17 +1,23 @@
+import { forwardRef } from 'react';
 import styles from './input.module.scss';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  textarea?: boolean;
   label?: string;
 }
 
-const Input = ({ label, textarea, ...props }: InputProps) => {
-  return (
-    <>
-      {label && <label>{label}</label>}
-      {textarea ? <textarea /> : <input {...props} className={styles.input} />}
-    </>
-  );
-};
+const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ label, ...props }, ref) => {
+    return (
+      <>
+        {label && <label>{label}</label>}
+        <input
+          ref={ref as React.Ref<HTMLInputElement>}
+          {...props}
+          className={styles.input}
+        />
+      </>
+    );
+  }
+);
 
 export default Input;
