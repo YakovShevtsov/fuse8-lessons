@@ -10,6 +10,8 @@ const InteractiveBlock = () => {
   const [error, setError] = useState<string | null>(null);
   const alertInputRef = useRef<HTMLInputElement>(null);
 
+  const isErrorVisible = !!error;
+
   const handleAlertText = () => {
     setError(null);
     if (alertInputRef.current?.value.trim()) {
@@ -41,7 +43,7 @@ const InteractiveBlock = () => {
           <AlertIcon fill="currentColor" />
         </Button>
       </div>
-      <Error message={error} isVisible={!!error} />
+      <Error message={error} isVisible={isErrorVisible} />
     </Screen>
   );
 };

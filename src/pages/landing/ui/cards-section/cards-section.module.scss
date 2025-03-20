@@ -1,6 +1,10 @@
 @use '@shared/styles/mixins' as *;
 @use '@shared/styles/breakpoints-mixins' as *;
 
+.cards-section {
+  background-color: var(--color-secondary-700);
+}
+
 .cards-container {
   flex-wrap: wrap;
   width: 100%;

@@ -2,11 +2,11 @@
 @use '@shared/styles/breakpoints-mixins' as *;
 
 .header {
-  max-width: 60rem;
-  padding: 1rem;
+  max-width: 960px;
+  padding: 16px;
   margin: auto;
   @include tablet {
-    padding: 2rem;
+    padding: 32px;
   }
 }
 

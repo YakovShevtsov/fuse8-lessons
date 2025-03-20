@@ -24,11 +24,7 @@ const LANDING_CARDS_DATA: LandingCard[] = [
 
 const CardsSection = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <Screen
-      ref={ref}
-      id="second-screen"
-      style={{ backgroundColor: 'var(--color-secondary-700)' }}
-    >
+    <Screen className={styles['cards-section']} ref={ref} id="second-screen">
       <h2>Смотрите какие карточки</h2>
       <div className={styles['cards-container']}>
         {LANDING_CARDS_DATA.map((card) => (
