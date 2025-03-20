@@ -5,6 +5,7 @@ import RootLayout from '@pages/root/root';
 import PostPage from '@pages/post/ui/post-page';
 import ErrorPage from '@pages/error/ui/error-page';
 import LandingPage from '@pages/landing/ui/landing-page';
+import { NavigationPage } from '@pages/navigation/navigation-page';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       { path: '/', element: <HomePage /> },
       { path: '/random-post', element: <PostPage /> },
       { path: '/landing', element: <LandingPage /> },
+      { path: '/navigation', element: <NavigationPage /> },
     ],
   },
 ]);

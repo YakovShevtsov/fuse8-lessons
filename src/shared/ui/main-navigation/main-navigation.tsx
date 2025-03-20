@@ -38,6 +38,16 @@ const MainNavigation = () => {
               Landing page
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to={routes.navigation.getLink()}
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Navigation
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
