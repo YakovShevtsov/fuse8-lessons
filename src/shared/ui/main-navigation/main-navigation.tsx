@@ -28,6 +28,16 @@ const MainNavigation = () => {
               Random post
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              to={routes.landing.getLink()}
+              className={({ isActive }) =>
+                isActive ? classes.active : undefined
+              }
+            >
+              Landing page
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

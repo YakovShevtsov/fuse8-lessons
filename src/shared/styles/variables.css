@@ -1,0 +1,24 @@
+:root {
+  /* colors variables */
+
+  --color-primary-500: #f97316;
+  --color-primary-400: #fb923c;
+  --color-primary-300: #fdba74;
+  --color-primary-200: #fee4c3;
+  --color-secondary-800: #262626;
+  --color-secondary-700: #44403c;
+  --color-secondary-600: #525252;
+  --color-error-500: #dc2626;
+  --color-error-100: #fee2e2;
+
+  /* font-sizes variables */
+
+  --font-size-xs: 8px;
+  --font-size-sm: 12px;
+  --font-size-md: 16px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+  --font-size-3xl: 40px;
+  --font-size-4xl: 48px;
+}

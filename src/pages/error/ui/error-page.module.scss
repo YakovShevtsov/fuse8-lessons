@@ -1,0 +1,5 @@
+@use '@shared/styles/mixins' as *;
+
+.error-page {
+  @include flex-center(column, 8px);
+}

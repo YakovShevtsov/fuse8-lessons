@@ -1,20 +1,24 @@
+@use '@shared/styles/mixins.scss' as *;
+
 .error {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  max-width: 31.25rem;
-  padding: 1rem;
-  margin: 1rem auto;
-  font-size: 1.15rem;
+  min-height: 40px;
+  padding: 16px;
+  margin: 16px auto;
+  font-size: var(--font-size-md);
   font-weight: 700;
-  color: #942531;
+  color: var(--color-error-500);
   word-wrap: break-word;
-  background-color: #f8d7da;
-  border-radius: 1rem;
+  background-color: var(--color-error-100);
+  border-radius: 16px;
+  @include flex-center(column, 16px);
+
+  &.hidden {
+    visibility: hidden;
+  }
 
   .error-message {
     flex-grow: 1;
     margin: 0;
+    text-align: center;
   }
 }

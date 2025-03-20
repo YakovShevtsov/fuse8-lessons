@@ -1,0 +1,8 @@
+@use '@shared/styles/mixins.scss' as *;
+
+.screen {
+  height: 100vh;
+  padding: 0 16px;
+  text-align: center;
+  @include flex-center(column);
+}

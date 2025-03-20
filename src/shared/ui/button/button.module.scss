@@ -1,13 +1,15 @@
+@use '@shared/styles/mixins' as *;
+
 .button {
-  height: 3rem;
-  padding: 0 2rem;
-  font-size: 1.15rem;
+  padding: 16px 32px;
+  font-size: var(--font-size-md);
   font-weight: 700;
-  color: #242424;
+  color: var(--color-secondary-800);
   text-align: center;
   cursor: pointer;
   background-color: var(--color-primary-500);
-  border-radius: 0.5rem;
+  border-radius: 8px;
+  @include flex-center(row, 8px);
 
   &:hover {
     background-color: var(--color-primary-400);
