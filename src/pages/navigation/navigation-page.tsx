@@ -1,6 +1,19 @@
 import { Link } from 'react-router';
 import './navigation-page.scss';
 
+type Route = {
+  name: string;
+  pathname: string;
+  getLink: () => string;
+  text: string;
+};
+
+type NavigationItem = {
+  name: string;
+  text: string;
+  children: (Route | NavigationItem)[];
+};
+
 const USER_READ_PERMISSIONS = [
   'vacancies',
   'users',
@@ -9,7 +22,7 @@ const USER_READ_PERMISSIONS = [
   'partners',
 ];
 
-const checkHasUserPermission = (routeName) => {
+const checkHasUserPermission = (routeName: string): boolean => {
   return USER_READ_PERMISSIONS.includes(routeName);
 };
 
@@ -18,7 +31,7 @@ const checkHasUserPermission = (routeName) => {
 // 	return USER_READ_PERMISSIONS.includes(routeName)
 // }
 
-const routes = {
+const routes: Record<string, Route> = {
   vacancies: {
     name: 'vacancies',
     pathname: 'vacancies',
@@ -51,7 +64,7 @@ const routes = {
   },
 };
 
-const navigationList = [
+const navigationList: NavigationItem[] = [
   {
     name: 'content',
     text: 'Контент',
@@ -82,20 +95,23 @@ const navigationList = [
 ];
 
 const generateNavigationListWithPermissions = (
-  navigationList,
-  checkPermission
-) => {
+  navigationList: NavigationItem[],
+  checkPermission: (routeName: string) => boolean
+): NavigationItem[] => {
   return navigationList
     .map((level1) => {
       const firstLevelChilds = level1.children
         .map((level2) => {
-          const secondLevelChilds = level2.children.filter((route) =>
-            checkPermission(route.name)
-          );
+          if ('children' in level2) {
+            const secondLevelChilds = level2.children.filter((route) =>
+              checkPermission(route.name)
+            );
 
-          return secondLevelChilds.length > 0
-            ? { ...level2, children: secondLevelChilds }
-            : null;
+            return secondLevelChilds.length > 0
+              ? { ...level2, children: secondLevelChilds }
+              : null;
+          }
+          return null;
         })
         .filter((item) => item !== null);
 
@@ -124,13 +140,19 @@ export const NavigationPage = () => {
                   <li className="navigation-level-2" key={level2.text}>
                     {level2.text}
                     <ul className="navigation-level-3">
-                      {level2.children.map((route) => (
-                        <li>
-                          <Link to={route.getLink()} key={route.text}>
-                            {route.text}
-                          </Link>
-                        </li>
-                      ))}
+                      {'children' in level2 &&
+                        level2.children.map((route) => {
+                          if ('getLink' in route) {
+                            return (
+                              <li key={route.name}>
+                                <Link to={route.getLink()} key={route.text}>
+                                  {route.text}
+                                </Link>
+                              </li>
+                            );
+                          }
+                          return null;
+                        })}
                     </ul>
                   </li>
                 ))}
