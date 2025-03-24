@@ -109,8 +109,11 @@ const generateNavigationListWithPermissions = async (
                 const secondLevelChilds = (
                   await Promise.all(
                     level2.children.map(async (route) => {
-                      const hasPermission = await checkPermission(route.name);
-                      return hasPermission ? route : null;
+                      if (route) {
+                        const hasPermission = await checkPermission(route.name);
+                        return hasPermission ? route : null;
+                      }
+                      return null;
                     })
                   )
                 ).filter((item) => item !== null);
