@@ -1,16 +1,16 @@
-import Button from '@shared/ui/button/button';
-import Error from '@shared/ui/error/error';
-import useRandomPostTitle from '@pages/post/api/use-random-post-title';
+import { Button } from '@shared/ui/button/button';
+import { Error } from '@shared/ui/error/error';
+import { useRandomPostTitle } from '@pages/post/api/use-random-post-title';
 import styles from './post-page.module.scss';
 
-const PostPage = () => {
+export const PostPage = () => {
   const { fetchPostTitle, postTitle, loading, error } = useRandomPostTitle();
 
   return (
     <div className="container">
       <h1 className={styles['post-page-title']}>Random post title!</h1>
 
-      {error && <Error message={error} />}
+      {error && <Error message={error} isVisible={true} />}
       {postTitle ? (
         <article>
           <p className={styles['random-post-title']}>{postTitle}</p>
@@ -27,5 +27,3 @@ const PostPage = () => {
     </div>
   );
 };
-
-export default PostPage;

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const DEFAULT_ERROR = 'An unexpected error occurred. Please try again later.';
 
-const handleApiError = (error: unknown): string => {
+export const handleApiError = (error: unknown): string => {
   if (axios.isAxiosError(error)) {
     const statusCode = error.response?.status;
 
@@ -19,5 +19,3 @@ const handleApiError = (error: unknown): string => {
 
   return DEFAULT_ERROR;
 };
-
-export default handleApiError;

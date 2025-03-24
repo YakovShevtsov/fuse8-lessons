@@ -1,6 +1,6 @@
-import Screen from '@shared/ui/screen/screen';
+import { Screen } from '@shared/ui/screen/screen';
 import styles from './cards-section.module.scss';
-import Card from '@shared/ui/card/card';
+import { Card } from '@shared/ui/card/card';
 import { forwardRef } from 'react';
 
 type LandingCard = {
@@ -22,7 +22,7 @@ const LANDING_CARDS_DATA: LandingCard[] = [
   },
 ];
 
-const CardsSection = forwardRef<HTMLElement>((_, ref) => {
+export const CardsSection = forwardRef<HTMLElement>((_, ref) => {
   return (
     <Screen className={styles['cards-section']} ref={ref} id="second-screen">
       <h2>Смотрите какие карточки</h2>
@@ -38,4 +38,3 @@ const CardsSection = forwardRef<HTMLElement>((_, ref) => {
   );
 });
 
-export default CardsSection;

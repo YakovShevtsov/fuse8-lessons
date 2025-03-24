@@ -6,7 +6,7 @@ interface ErrorProps {
   isVisible: boolean;
 }
 
-const Error = ({ message, isVisible }: ErrorProps) => {
+export const Error = ({ message, isVisible }: ErrorProps) => {
   return (
     <div
       className={classNames(styles.error, !isVisible ? styles.hidden : null)}
@@ -16,4 +16,3 @@ const Error = ({ message, isVisible }: ErrorProps) => {
   );
 };
 
-export default Error;

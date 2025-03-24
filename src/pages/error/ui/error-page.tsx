@@ -1,8 +1,8 @@
-import Error from '@shared/ui/error/error';
-import MainNavigation from '@shared/ui/main-navigation/main-navigation';
+import { Error } from '@shared/ui/error/error';
+import { MainNavigation } from '@shared/ui/main-navigation/main-navigation';
 import styles from './error-page.module.scss';
 
-const ErrorPage = () => {
+export const ErrorPage = () => {
   return (
     <>
       <MainNavigation />
@@ -15,5 +15,3 @@ const ErrorPage = () => {
     </>
   );
 };
-
-export default ErrorPage;

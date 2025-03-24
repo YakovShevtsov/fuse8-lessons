@@ -1,6 +1,6 @@
 import { SVGProps } from 'react';
 
-const AlertIcon = (props: SVGProps<SVGSVGElement>) => {
+export const AlertIcon = (props: SVGProps<SVGSVGElement>) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -27,4 +27,3 @@ const AlertIcon = (props: SVGProps<SVGSVGElement>) => {
   );
 };
 
-export default AlertIcon;

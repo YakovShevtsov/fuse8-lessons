@@ -5,7 +5,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, ...props }, ref) => {
     return (
       <>
@@ -20,4 +20,3 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-export default Input;

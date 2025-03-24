@@ -1,12 +1,12 @@
-import Screen from '@shared/ui/screen/screen';
+import { Screen } from '@shared/ui/screen/screen';
 import styles from './interactive-block.module.scss';
-import Input from '@shared/ui/input/input';
-import Button from '@shared/ui/button/button';
-import AlertIcon from '@shared/ui/icons/alert-icon';
+import { Input } from '@shared/ui/input/input';
+import { Button } from '@shared/ui/button/button';
+import { AlertIcon } from '@shared/ui/icons/alert-icon';
 import { useRef, useState } from 'react';
-import Error from '@shared/ui/error/error';
+import { Error } from '@shared/ui/error/error';
 
-const InteractiveBlock = () => {
+export const InteractiveBlock = () => {
   const [error, setError] = useState<string | null>(null);
   const alertInputRef = useRef<HTMLInputElement>(null);
 
@@ -47,5 +47,3 @@ const InteractiveBlock = () => {
     </Screen>
   );
 };
-
-export default InteractiveBlock;
