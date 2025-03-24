@@ -1,10 +1,10 @@
-import FactsSection from './facts-section/facts-section';
-import CardsSection from './cards-section/cards-section';
-import InteractiveBlock from './interactive-block/interactive-block';
+import { FactsSection } from './facts-section/facts-section';
+import { CardsSection } from './cards-section/cards-section';
+import { InteractiveBlock } from './interactive-block/interactive-block';
 import styles from './landing-page.module.scss';
 import { useRef } from 'react';
 
-const LandingPage = () => {
+export const LandingPage = () => {
   const cardsSectionRef = useRef<HTMLElement>(null);
 
   const handleScrollToCards = () => {
@@ -20,5 +20,3 @@ const LandingPage = () => {
     </div>
   );
 };
-
-export default LandingPage;

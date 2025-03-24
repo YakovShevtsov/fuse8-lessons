@@ -6,8 +6,7 @@ interface CardProps {
   children: React.ReactNode;
 }
 
-const Card = ({ children, className }: CardProps) => {
+export const Card = ({ children, className }: CardProps) => {
   return <div className={classNames(styles.card, className)}>{children}</div>;
 };
 
-export default Card;

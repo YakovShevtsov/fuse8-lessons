@@ -2,7 +2,7 @@ import { NavLink } from 'react-router';
 import classes from './main-navigation.module.scss';
 import { routes } from '@shared/services/routes';
 
-const MainNavigation = () => {
+export const MainNavigation = () => {
   return (
     <header className={classes.header}>
       <nav>
@@ -54,4 +54,3 @@ const MainNavigation = () => {
   );
 };
 
-export default MainNavigation;

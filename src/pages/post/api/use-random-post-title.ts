@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { apiClient } from '@shared/services/request';
-import handleApiError from '@shared/helpers/api-error-handler';
-import apiEndPoints from '@shared/services/api-end-points';
+import { handleApiError } from '@shared/helpers/api-error-handler';
+import { apiEndPoints } from '@shared/services/api-end-points';
 
 interface Post {
   userId: number;
@@ -42,5 +42,3 @@ export const useRandomPostTitle = () => {
 
   return { fetchPostTitle, postTitle: post?.title, loading, error };
 };
-
-export default useRandomPostTitle;
