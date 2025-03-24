@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import './navigation-page.scss';
+import { useEffect, useState } from 'react';
 
 type Route = {
   name: string;
@@ -22,14 +23,14 @@ const USER_READ_PERMISSIONS = [
   'partners',
 ];
 
-const checkHasUserPermission = (routeName: string): boolean => {
-  return USER_READ_PERMISSIONS.includes(routeName);
-};
+// const checkHasUserPermission = (routeName: string): boolean => {
+//   return USER_READ_PERMISSIONS.includes(routeName);
+// };
 
 // Со звездочкой проверка прав асинхронная
-// const checkHasUserPermission = async (routeName) => {
-// 	return USER_READ_PERMISSIONS.includes(routeName)
-// }
+const checkHasUserPermission = async (routeName: string): Promise<boolean> => {
+  return USER_READ_PERMISSIONS.includes(routeName);
+};
 
 const routes: Record<string, Route> = {
   vacancies: {
@@ -94,45 +95,66 @@ const navigationList: NavigationItem[] = [
   },
 ];
 
-const generateNavigationListWithPermissions = (
+const generateNavigationListWithPermissions = async (
   navigationList: NavigationItem[],
-  checkPermission: (routeName: string) => boolean
-): NavigationItem[] => {
-  return navigationList
-    .map((level1) => {
-      const firstLevelChilds = level1.children
-        .map((level2) => {
-          if ('children' in level2) {
-            const secondLevelChilds = level2.children.filter((route) =>
-              checkPermission(route.name)
-            );
+  checkPermission: (routeName: string) => Promise<boolean>
+): Promise<NavigationItem[]> => {
+  return (
+    await Promise.all(
+      navigationList.map(async (level1) => {
+        const firstLevelChilds = (
+          await Promise.all(
+            level1.children.map(async (level2) => {
+              if ('children' in level2) {
+                const secondLevelChilds = (
+                  await Promise.all(
+                    level2.children.map(async (route) => {
+                      const hasPermission = await checkPermission(route.name);
+                      return hasPermission ? route : null;
+                    })
+                  )
+                ).filter((item) => item !== null);
 
-            return secondLevelChilds.length > 0
-              ? { ...level2, children: secondLevelChilds }
-              : null;
-          }
-          return null;
-        })
-        .filter((item) => item !== null);
+                return secondLevelChilds.length > 0
+                  ? { ...level2, children: secondLevelChilds }
+                  : null;
+              }
+              return null;
+            })
+          )
+        ).filter((item) => item !== null);
 
-      return firstLevelChilds.length > 0
-        ? { ...level1, children: firstLevelChilds }
-        : null;
-    })
-    .filter((item) => item !== null);
+        return firstLevelChilds.length > 0
+          ? { ...level1, children: firstLevelChilds }
+          : null;
+      })
+    )
+  ).filter((item) => item !== null);
 };
 
 export const NavigationPage = () => {
-  const navigationListWithPermission = generateNavigationListWithPermissions(
-    navigationList,
-    checkHasUserPermission
-  );
+  const [navigationListWithPermissions, setNavigationListWithPermissions] =
+    useState<NavigationItem[]>([]);
+
+  useEffect(() => {
+    const fetchNavigationListWithPermissions = async () => {
+      const navigationListWithPermissions =
+        await generateNavigationListWithPermissions(
+          navigationList,
+          checkHasUserPermission
+        );
+
+      setNavigationListWithPermissions(navigationListWithPermissions);
+    };
+
+    fetchNavigationListWithPermissions();
+  }, []);
 
   return (
     <div className="container">
       <nav>
         <ul className="navigation">
-          {navigationListWithPermission.map((level1) => (
+          {navigationListWithPermissions.map((level1) => (
             <li className="navigation-level-1" key={level1.text}>
               {level1.text}
               <ul className="navigation-submenu">
@@ -145,9 +167,7 @@ export const NavigationPage = () => {
                           if ('getLink' in route) {
                             return (
                               <li key={route.name}>
-                                <Link to={route.getLink()} key={route.text}>
-                                  {route.text}
-                                </Link>
+                                <Link to={route.getLink()}>{route.text}</Link>
                               </li>
                             );
                           }
