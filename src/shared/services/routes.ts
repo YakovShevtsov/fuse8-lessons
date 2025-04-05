@@ -15,4 +15,12 @@ export const routes = {
     getLink: () => '/navigation',
     pathname: '/navigation',
   },
+  articles: {
+    getLink: () => '/articles',
+    pathname: '/articles',
+  },
+  createArticle: {
+    getLink: () => '/create-article',
+    pathname: '/create-article',
+  },
 };

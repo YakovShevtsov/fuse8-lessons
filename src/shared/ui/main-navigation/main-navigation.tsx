@@ -7,6 +7,12 @@ const MAIN_NAVIGATION_LIST = [
   { text: 'Random post', name: 'random-post', route: routes.post },
   { text: 'Landing page', name: 'landing-page', route: routes.landing },
   { text: 'Navigation', name: 'navigation', route: routes.navigation },
+  {
+    text: 'Create article',
+    name: 'create-article',
+    route: routes.createArticle,
+  },
+  { text: 'Articles', name: 'articles', route: routes.articles },
 ];
 
 export const MainNavigation = () => {
