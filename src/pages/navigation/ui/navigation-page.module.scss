@@ -1,0 +1,26 @@
+.navigation {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.navigation-level-1 {
+  margin: 20px 0;
+}
+
+.navigation-level-2 {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+.navigation-level-3 {
+  padding-left: 20px;
+  margin: 10px 0;
+
+  a {
+    color: var(--color-primary-500);
+
+    &:hover {
+      color: var(--color-primary-400);
+    }
+  }
+}

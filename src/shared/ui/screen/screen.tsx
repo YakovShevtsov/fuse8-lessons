@@ -9,7 +9,7 @@ interface ScreenProps {
   className?: string;
 }
 
-const Screen = forwardRef<HTMLElement, ScreenProps>(
+export const Screen = forwardRef<HTMLElement, ScreenProps>(
   ({ id, children, className, style }, ref) => {
     return (
       <section
@@ -24,4 +24,3 @@ const Screen = forwardRef<HTMLElement, ScreenProps>(
   }
 );
 
-export default Screen;

@@ -1,13 +1,13 @@
-import Button from '@shared/ui/button/button';
-import Screen from '@shared/ui/screen/screen';
+import { Button } from '@shared/ui/button/button';
+import { Screen } from '@shared/ui/screen/screen';
 import styles from './facts-section.module.scss';
-import EyeIcon from '@shared/ui/icons/eye-icon';
+import { EyeIcon } from '@shared/ui/icons/eye-icon';
 
 interface FactsSectionProps {
   onScrollToCardsSection: () => void;
 }
 
-const FactsSection = ({ onScrollToCardsSection }: FactsSectionProps) => {
+export const FactsSection = ({ onScrollToCardsSection }: FactsSectionProps) => {
   return (
     <Screen>
       <h2>Интересные факты про эту страницу</h2>
@@ -19,5 +19,3 @@ const FactsSection = ({ onScrollToCardsSection }: FactsSectionProps) => {
     </Screen>
   );
 };
-
-export default FactsSection;

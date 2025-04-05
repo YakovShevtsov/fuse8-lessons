@@ -1,5 +1,4 @@
-const apiEndPoints = {
+export const apiEndPoints = {
   posts: '/posts',
 };
 
-export default apiEndPoints;
