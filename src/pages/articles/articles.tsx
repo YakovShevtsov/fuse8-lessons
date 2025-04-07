@@ -1,20 +1,56 @@
+import { articleAPI } from '@entities/article/model/article-api';
 import { Button } from '@shared/ui/button/button';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import styles from './articles.module.scss';
 
 export const Articles = () => {
+  const queryClient = useQueryClient();
+
+  const { data: articles, status } = useQuery({
+    queryKey: ['fetch-articles'],
+    queryFn: articleAPI.getArticles,
+  });
+
+  const { mutate: deleteArticle } = useMutation({
+    mutationFn: articleAPI.deleteArticle,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['fetch-articles'] });
+    },
+  });
+
+  const handleDeleteArticle = (articleId: string) => {
+    deleteArticle(articleId);
+  };
+
   return (
-    <ul>
-      <li style={{ border: '1px solid #ccc', padding: '12px' }}>
-        <Button type="button">Удалить</Button>
-        <p>Id: </p>
-        <p>Заголовок: </p>
-        <p>Тип: </p>
-        <div>
-          <div>
-            <p>Опубликована</p>
-            <p>Описание</p>
-          </div>
-        </div>
-      </li>
-    </ul>
+    <div className="container">
+      {status === 'pending' && (
+        <p className={styles['articles-loader']}>Loading...</p>
+      )}
+      <ul>
+        {articles?.map((article) => (
+          <li
+            key={article.id}
+            style={{ border: '1px solid #ccc', padding: '12px' }}
+          >
+            <Button
+              type="button"
+              onClick={() => handleDeleteArticle(article.id)}
+            >
+              Удалить
+            </Button>
+            <p>Id: {article.id}</p>
+            <p>Заголовок: {article.title}</p>
+            <p>Тип: </p>
+            <div>
+              <div>
+                <p>Опубликована</p>
+                <p>Описание</p>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 };

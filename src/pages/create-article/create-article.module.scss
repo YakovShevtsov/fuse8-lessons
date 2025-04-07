@@ -1,0 +1,23 @@
+@use '@shared/styles/mixins.scss' as *;
+
+.create-article-title {
+  margin-top: 32px;
+  text-align: center;
+}
+
+.create-article-form {
+  max-width: 450px;
+  margin-top: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  @include flex-center(column, 8px, stretch);
+}
+
+.create-article-errors {
+  margin-top: 24px;
+  @include flex-center(column, 8px, stretch);
+}
+
+.article-description-textarea {
+  resize: vertical;
+}

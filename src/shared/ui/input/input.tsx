@@ -1,22 +1,21 @@
-import { forwardRef } from 'react';
 import styles from './input.module.scss';
+import cn from 'classnames';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type InputProps = {
   label?: string;
-}
+  textarea?: boolean;
+} & React.InputHTMLAttributes<HTMLInputElement> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, ...props }, ref) => {
-    return (
-      <>
-        {label && <label>{label}</label>}
-        <input
-          ref={ref as React.Ref<HTMLInputElement>}
-          {...props}
-          className={styles.input}
-        />
-      </>
-    );
-  }
-);
-
+export const Input = ({ label, textarea, className, ...props }: InputProps) => {
+  return (
+    <>
+      {label && <label>{label}</label>}
+      {textarea ? (
+        <textarea className={cn(styles.input, className)} {...props} />
+      ) : (
+        <input {...props} className={cn(styles.input, className)} />
+      )}
+    </>
+  );
+};
