@@ -1,4 +1,4 @@
-import { Article, CreateArticle, UpdateArticle } from './types';
+import { Article, CreateArticle } from './types';
 
 const generateId = () => Date.now().toString(36) + Math.random().toString(36);
 
@@ -22,31 +22,6 @@ export const articleAPI = {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
 
       return newArticle;
-    } catch (error) {
-      console.error(error);
-      throw new Error('Failed to save article');
-    }
-  },
-
-  updateArticle: async ({
-    id,
-    articleUpdate,
-  }: {
-    id: string;
-    articleUpdate: UpdateArticle;
-  }): Promise<Article> => {
-    await delay(DELAY_TIME);
-
-    try {
-      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-      const article = {
-        ...articleUpdate,
-        id,
-      };
-      stored[id] = article;
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
-
-      return article;
     } catch (error) {
       console.error(error);
       throw new Error('Failed to save article');

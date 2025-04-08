@@ -12,8 +12,3 @@ export type CreateArticle = {
   title: string;
   content: ArticleContent;
 };
-
-export type UpdateArticle = {
-  title: string;
-  content: ArticleContent;
-};

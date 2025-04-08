@@ -7,7 +7,7 @@ import { ErrorPage } from '@pages/error/ui/error-page';
 import { LandingPage } from '@pages/landing/ui/landing-page';
 import { NavigationPage } from '@pages/navigation/ui/navigation-page';
 import { Articles } from '@pages/articles/articles';
-import { CreateArticle } from '@pages/create-article/create-article';
+import { ArticleCreation } from '@pages/article-creation/article-creation';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       { path: '/landing', element: <LandingPage /> },
       { path: '/navigation', element: <NavigationPage /> },
       { path: '/articles', element: <Articles /> },
-      { path: '/create-article', element: <CreateArticle /> },
+      { path: '/create-article', element: <ArticleCreation /> },
     ],
   },
 ]);

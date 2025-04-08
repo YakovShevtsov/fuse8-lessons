@@ -41,12 +41,18 @@ export const Articles = () => {
             </Button>
             <p>Id: {article.id}</p>
             <p>Заголовок: {article.title}</p>
-            <p>Тип: </p>
+            <p>Тип: {article.content.type}</p>
             <div>
-              <div>
-                <p>Опубликована</p>
-                <p>Описание</p>
-              </div>
+              {article.content.type === 'draft' ? (
+                <div>
+                  <p>Черновик</p>
+                </div>
+              ) : (
+                <div>
+                  <p>Опубликована: {article.content.isNew && 'Новая статья'}</p>
+                  <p>{article.content.description}</p>
+                </div>
+              )}
             </div>
           </li>
         ))}
