@@ -1,25 +1,8 @@
+@use '@shared/styles/mixins' as *;
+
 .input {
   padding: 16px;
-  font-size: var(--font-size-md);
-  color: var(--color-secondary-800);
-  outline: none;
-  border: 2px solid var(--color-secondary-600);
-  border-radius: 8px;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    border: 2px solid var(--color-primary-500);
-  }
-
-  &::placeholder {
-    color: var(--color-secondary-400);
-  }
-
-  &:disabled {
-    cursor: not-allowed;
-    background-color: var(--color-secondary-200);
-    opacity: 0.6;
-  }
+  @include input-styles;
 
   &[type='checkbox'] {
     position: relative;
@@ -32,19 +15,20 @@
     cursor: pointer;
     border: 2px solid var(--color-primary-500);
     border-radius: 4px;
+    transition: background-color 0.3s ease;
 
     &:checked {
       background-color: var(--color-primary-500);
-    }
 
-    &:checked::after {
-      position: absolute;
-      top: 1px;
-      left: 4px;
-      font-size: 16px;
-      font-weight: bold;
-      color: white;
-      content: '✓';
+      &::after {
+        position: absolute;
+        top: 1px;
+        left: 4px;
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        content: '✓';
+      }
     }
   }
 }

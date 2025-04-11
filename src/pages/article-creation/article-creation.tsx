@@ -6,17 +6,18 @@ import { z } from 'zod';
 import styles from './article-creation.module.scss';
 import { useNavigate } from 'react-router';
 import { routes } from '@shared/services/routes';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { articleAPI } from '@entities/article/model/article-api';
 import { Error } from '@shared/ui/error/error';
 import { CreateArticle } from '@entities/article/model/types';
+import { Select } from '@shared/ui/select/select';
 
 const schema = z.object({
   title: z
     .string()
     .min(1, 'Минимальная длина названия - 1 символ')
     .max(100, 'Максимальная длина названия - 100 символов'),
-  content: z.union([
+  content: z.discriminatedUnion('type', [
     z.object({
       type: z.literal('draft'),
     }),
@@ -33,30 +34,79 @@ const schema = z.object({
 
 type CreateArticleForm = z.infer<typeof schema>;
 
+// const Title = z
+//   .string()
+//   .min(1, 'Минимальная длина названия - 1 символ')
+//   .max(100, 'Максимальная длина названия - 100 символов');
+
+// const Published = z.object({
+//   description: z
+//     .string()
+//     .min(10, 'Минимальная длина описания - 10 символов')
+//     .max(1000, 'Максимальная длина описания - 1000 символов'),
+//   isNew: z.boolean().default(false).optional(),
+//   type: z.literal('published'),
+// });
+
+// const Draft = z.object({
+//   type: z.literal('draft'),
+// });
+
+// const Schema = z.object({
+//   content: z.discriminatedUnion('type', [Published, Draft]),
+//   title: Title,
+// });
+
+// type Schema = z.infer<typeof Schema>;
+
+const articleTypeOptions = [
+  { text: 'Draft', value: 'draft' },
+  { text: 'Published', value: 'published' },
+];
+
+// const isSchema = (schema: unknown): schema is Schema => {
+//   if (typeof schema === 'object' && schema !== null && 'type' in schema) {
+//     return schema.type === 'published' || schema.type === 'draft';
+//   }
+//   return false;
+// };
+
 export const ArticleCreation = () => {
+  const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    watch,
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<CreateArticleForm>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      content: { type: 'draft' },
+    },
   });
+
+  const contentType = watch('content.type');
 
   const { mutate, status } = useMutation({
     mutationFn: articleAPI.createArticle,
+    onSuccess: () => {
+      reset();
+      navigate(routes.articles.pathname);
+      queryClient.invalidateQueries({ queryKey: ['fetch-articles'] });
+    },
   });
 
-  const navigate = useNavigate();
-
   const handleCreateArticle = handleSubmit((data: CreateArticleForm) => {
-    const finalData: CreateArticle =
+    const articleData: CreateArticle =
       data.content.type === 'draft'
         ? {
-            title: data.title,
+            ...data,
             content: { type: 'draft' },
           }
         : {
-            title: data.title,
+            ...data,
             content: {
               type: 'published',
               description: data.content.description,
@@ -64,8 +114,7 @@ export const ArticleCreation = () => {
             },
           };
 
-    mutate(finalData);
-    navigate(routes.articles.pathname);
+    mutate(articleData);
   });
 
   return (
@@ -75,42 +124,53 @@ export const ArticleCreation = () => {
         className={styles['create-article-form']}
         onSubmit={handleCreateArticle}
       >
-        <Input
-          placeholder="Название статьи"
-          type="text"
-          {...register('title')}
-        />
-        <Input
-          textarea
-          placeholder="Описание"
-          rows={5}
-          {...register('content.description')}
-          className={styles['article-description-textarea']}
-        />
-        <select
-          {...register('content.type')}
-          className={styles['article-type']}
-        >
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-        </select>
-        <div className={styles['article-is-new']}>
+        <div className={styles['input-wrapper']}>
           <Input
-            type="checkbox"
-            {...register('content.isNew')}
-            id="article-is-new-checkbox"
+            placeholder="Название статьи"
+            type="text"
+            {...register('title')}
+            disabled={isSubmitting}
           />
-          <label htmlFor="article-is-new-checkbox">Новая статья</label>
+          {errors.title && (
+            <Error isVisible={true} message={errors.title.message} />
+          )}
         </div>
+
+        {contentType === 'published' && (
+          <div className={styles['input-wrapper']}>
+            <Input
+              textarea
+              placeholder="Описание"
+              rows={5}
+              {...register('content.description')}
+              className={styles['article-description-textarea']}
+              disabled={isSubmitting}
+            />
+            {errors.content && 'description' in errors.content && (
+              <Error
+                isVisible={true}
+                message={errors.content.description.message}
+              />
+            )}
+          </div>
+        )}
+
+        <Select options={articleTypeOptions} {...register('content.type')} />
+        {contentType === 'published' && (
+          <div className={styles['article-is-new']}>
+            <Input
+              type="checkbox"
+              {...register('content.isNew')}
+              id="article-is-new-checkbox"
+              disabled={isSubmitting}
+            />
+            <label htmlFor="article-is-new-checkbox">Новая статья</label>
+          </div>
+        )}
+
         <Button type="submit" disabled={status === 'pending'}>
-          Создать
+          {status === 'pending' ? 'Создание' : 'Создать'}
         </Button>
-        {errors &&
-          Object.entries(errors).map(([field, error]) => (
-            <div className={styles['create-article-errors']}>
-              <Error key={field} isVisible={true} message={error?.message} />
-            </div>
-          ))}
       </form>
     </div>
   );

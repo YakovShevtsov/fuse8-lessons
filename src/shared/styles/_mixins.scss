@@ -8,3 +8,26 @@
     gap: $gap;
   }
 }
+
+@mixin input-styles {
+  font-size: var(--font-size-md);
+  color: var(--color-secondary-800);
+  outline: none;
+  border: 2px solid var(--color-secondary-600);
+  border-radius: 8px;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border: 2px solid var(--color-primary-500);
+  }
+
+  &::placeholder {
+    color: var(--color-secondary-400);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--color-secondary-200);
+    opacity: 0.6;
+  }
+}

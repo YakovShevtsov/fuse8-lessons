@@ -18,8 +18,7 @@
   @include flex-center(column, 16px, stretch);
 }
 
-.create-article-errors {
-  margin-top: 24px;
+.input-wrapper {
   @include flex-center(column, 8px, stretch);
 }
 

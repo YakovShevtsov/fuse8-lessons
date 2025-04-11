@@ -1,0 +1,6 @@
+@use '@shared/styles/mixins' as *;
+
+.select {
+  padding: 16px;
+  @include input-styles;
+}
