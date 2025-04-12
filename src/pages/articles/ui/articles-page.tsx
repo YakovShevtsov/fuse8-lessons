@@ -1,13 +1,14 @@
 import { articleAPI } from '@entities/article/model/article-api';
-import { Button } from '@shared/ui/button/button';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import styles from './articles.module.scss';
+import styles from './articles-page.module.scss';
 import { Article } from '@entities/article/model/types';
+import { ArticleCard } from '@entities/article/ui/article-card';
+import { Error } from '@shared/ui/error/error';
 
 const articlesOptions = {
   queryKey: ['fetch-articles'],
   queryFn: articleAPI.getArticles,
-  gcTime: 30000,
+  staleTime: 30000,
 };
 
 export const Articles = () => {
@@ -58,38 +59,15 @@ export const Articles = () => {
   return (
     <div className="container">
       {isPending && <p className={styles['articles-loader']}>Loading...</p>}
-      {error && <p>{error.message}</p>}
+      {error && <Error message={error.message} isVisible={true} />}
       {isSuccess && (
         <ul>
-          {articles?.map((article) => (
-            <li
+          {articles?.map((article: Article) => (
+            <ArticleCard
               key={article.id}
-              style={{ border: '1px solid #ccc', padding: '12px' }}
-            >
-              <Button
-                type="button"
-                onClick={() => handleDeleteArticle(article.id)}
-              >
-                Удалить
-              </Button>
-              <p>Id: {article.id}</p>
-              <p>Заголовок: {article.title}</p>
-              <p>Тип: {article.content.type}</p>
-              <div>
-                {article.content.type === 'draft' ? (
-                  <div>
-                    <p>Черновик</p>
-                  </div>
-                ) : (
-                  <div>
-                    <p>
-                      Опубликована: {article.content.isNew && 'Новая статья'}
-                    </p>
-                    <p>{article.content.description}</p>
-                  </div>
-                )}
-              </div>
-            </li>
+              onDelete={handleDeleteArticle}
+              articleData={article}
+            />
           ))}
         </ul>
       )}

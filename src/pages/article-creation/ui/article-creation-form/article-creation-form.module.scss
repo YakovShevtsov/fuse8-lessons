@@ -1,9 +1,4 @@
-@use '@shared/styles/mixins.scss' as *;
-
-.create-article-title {
-  margin-top: 32px;
-  text-align: center;
-}
+@use '@shared/styles/mixins' as *;
 
 .article-is-new {
   align-self: flex-start;

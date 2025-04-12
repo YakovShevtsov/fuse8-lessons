@@ -1,77 +1,22 @@
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@shared/ui/button/button';
-import { Input } from '@shared/ui/input/input';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import styles from './article-creation.module.scss';
 import { useNavigate } from 'react-router';
 import { routes } from '@shared/services/routes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { articleAPI } from '@entities/article/model/article-api';
 import { Error } from '@shared/ui/error/error';
-import { CreateArticle } from '@entities/article/model/types';
 import { Select } from '@shared/ui/select/select';
-
-const schema = z.object({
-  title: z
-    .string()
-    .min(1, 'Минимальная длина названия - 1 символ')
-    .max(100, 'Максимальная длина названия - 100 символов'),
-  content: z.discriminatedUnion('type', [
-    z.object({
-      type: z.literal('draft'),
-    }),
-    z.object({
-      type: z.literal('published'),
-      description: z
-        .string()
-        .min(10, 'Минимальная длина описания - 10 символов')
-        .max(1000, 'Максимальная длина описания - 1000 символов'),
-      isNew: z.boolean().default(false).optional(),
-    }),
-  ]),
-});
-
-type CreateArticleForm = z.infer<typeof schema>;
-
-// const Title = z
-//   .string()
-//   .min(1, 'Минимальная длина названия - 1 символ')
-//   .max(100, 'Максимальная длина названия - 100 символов');
-
-// const Published = z.object({
-//   description: z
-//     .string()
-//     .min(10, 'Минимальная длина описания - 10 символов')
-//     .max(1000, 'Максимальная длина описания - 1000 символов'),
-//   isNew: z.boolean().default(false).optional(),
-//   type: z.literal('published'),
-// });
-
-// const Draft = z.object({
-//   type: z.literal('draft'),
-// });
-
-// const Schema = z.object({
-//   content: z.discriminatedUnion('type', [Published, Draft]),
-//   title: Title,
-// });
-
-// type Schema = z.infer<typeof Schema>;
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@shared/ui/button/button';
+import { Input } from '@shared/ui/input/input';
+import { useForm } from 'react-hook-form';
+import { CreateArticleForm, CreateArticleFormSchema } from './form-schema';
+import styles from './article-creation-form.module.scss';
 
 const articleTypeOptions = [
   { text: 'Draft', value: 'draft' },
   { text: 'Published', value: 'published' },
 ];
 
-// const isSchema = (schema: unknown): schema is Schema => {
-//   if (typeof schema === 'object' && schema !== null && 'type' in schema) {
-//     return schema.type === 'published' || schema.type === 'draft';
-//   }
-//   return false;
-// };
-
-export const ArticleCreation = () => {
+export const ArticleCreationForm = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {
@@ -81,7 +26,7 @@ export const ArticleCreation = () => {
     reset,
     formState: { errors, isSubmitting },
   } = useForm<CreateArticleForm>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(CreateArticleFormSchema),
     defaultValues: {
       content: { type: 'draft' },
     },
@@ -99,27 +44,27 @@ export const ArticleCreation = () => {
   });
 
   const handleCreateArticle = handleSubmit((data: CreateArticleForm) => {
-    const articleData: CreateArticle =
-      data.content.type === 'draft'
-        ? {
-            ...data,
-            content: { type: 'draft' },
-          }
-        : {
-            ...data,
-            content: {
+    mutate({
+      title: data.title,
+      content:
+        data.content.type === 'draft'
+          ? { type: 'draft' }
+          : {
               type: 'published',
               description: data.content.description,
-              isNew: true,
+              isNew: data.content.isNew ?? false,
             },
-          };
-
-    mutate(articleData);
+    });
   });
 
   return (
-    <div className="container">
-      <h1 className={styles['create-article-title']}>Создать статью</h1>
+    <>
+      {status === 'error' && (
+        <Error
+          isVisible={true}
+          message="Произошла ошибка при создании статьи"
+        />
+      )}
       <form
         className={styles['create-article-form']}
         onSubmit={handleCreateArticle}
@@ -172,6 +117,6 @@ export const ArticleCreation = () => {
           {status === 'pending' ? 'Создание' : 'Создать'}
         </Button>
       </form>
-    </div>
+    </>
   );
 };
