@@ -7,9 +7,10 @@ import { Select } from '@shared/ui/select/select';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@shared/ui/button/button';
 import { Input } from '@shared/ui/input/input';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { CreateArticleForm, CreateArticleFormSchema } from './form-schema';
 import styles from './article-creation-form.module.scss';
+import { Article } from '@entities/article/model/types';
 
 const articleTypeOptions = [
   { text: 'Draft', value: 'draft' },
@@ -24,6 +25,7 @@ export const ArticleCreationForm = () => {
     handleSubmit,
     watch,
     reset,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CreateArticleForm>({
     resolver: zodResolver(CreateArticleFormSchema),
@@ -36,9 +38,14 @@ export const ArticleCreationForm = () => {
 
   const { mutate, status } = useMutation({
     mutationFn: articleAPI.createArticle,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.setQueryData<Article[]>(['fetch-articles'], (oldArticles) => {
+        if (!oldArticles) return [data];
+        return [data, ...oldArticles];
+      });
       reset();
       navigate(routes.articles.pathname);
+
       queryClient.invalidateQueries({ queryKey: ['fetch-articles'] });
     },
   });
@@ -82,22 +89,26 @@ export const ArticleCreationForm = () => {
         </div>
 
         {contentType === 'published' && (
-          <div className={styles['input-wrapper']}>
-            <Input
-              textarea
-              placeholder="Описание"
-              rows={5}
-              {...register('content.description')}
-              className={styles['article-description-textarea']}
-              disabled={isSubmitting}
-            />
-            {errors.content && 'description' in errors.content && (
-              <Error
-                isVisible={true}
-                message={errors.content.description.message}
-              />
+          <Controller
+            control={control}
+            name="content.description"
+            render={({ fieldState, field }) => (
+              <div className={styles['input-wrapper']}>
+                <Input
+                  textarea
+                  placeholder="Описание"
+                  rows={5}
+                  {...field}
+                  className={styles['article-description-textarea']}
+                  disabled={isSubmitting}
+                  aria-invalid={!!fieldState.error}
+                />
+                {fieldState.error && (
+                  <Error isVisible={true} message={fieldState.error.message} />
+                )}
+              </div>
             )}
-          </div>
+          />
         )}
 
         <Select options={articleTypeOptions} {...register('content.type')} />

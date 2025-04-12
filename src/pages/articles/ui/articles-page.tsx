@@ -39,7 +39,7 @@ export const Articles = () => {
 
       return { previousArticles };
     },
-    onError: (err, variables, context) => {
+    onError: (_err, _variables, context) => {
       if (context) {
         queryClient.setQueryData<Article>(
           ['fetch-articles'],

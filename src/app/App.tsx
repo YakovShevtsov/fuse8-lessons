@@ -9,6 +9,7 @@ import { NavigationPage } from '@pages/navigation/ui/navigation-page';
 import { Articles } from '@pages/articles/ui/articles-page';
 import { ArticleCreation } from '@pages/article-creation/ui/article-creation-page';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { routes } from '@shared/services/routes';
 
 const router = createBrowserRouter([
   {
@@ -16,12 +17,12 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
-      { path: '/', element: <HomePage /> },
-      { path: '/random-post', element: <PostPage /> },
-      { path: '/landing', element: <LandingPage /> },
-      { path: '/navigation', element: <NavigationPage /> },
-      { path: '/articles', element: <Articles /> },
-      { path: '/create-article', element: <ArticleCreation /> },
+      { path: routes.main.pathname, element: <HomePage /> },
+      { path: routes.post.pathname, element: <PostPage /> },
+      { path: routes.landing.pathname, element: <LandingPage /> },
+      { path: routes.navigation.pathname, element: <NavigationPage /> },
+      { path: routes.articles.pathname, element: <Articles /> },
+      { path: routes.createArticle.pathname, element: <ArticleCreation /> },
     ],
   },
 ]);
