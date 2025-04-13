@@ -4,13 +4,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { articleAPI } from '@entities/article/model/article-api';
 import { Error } from '@shared/ui/error/error';
 import { Select } from '@shared/ui/select/select';
-import { zodResolver } from '@hookform/resolvers/zod';
+// import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@shared/ui/button/button';
 import { Input } from '@shared/ui/input/input';
 import { Controller, useForm } from 'react-hook-form';
-import { CreateArticleForm, CreateArticleFormSchema } from './form-schema';
+import { CreateArticleForm, CreateArticleFormSchemaYup } from './form-schema';
 import styles from './article-creation-form.module.scss';
-import { Article } from '@entities/article/model/types';
+import { Article, CreateArticle } from '@entities/article/model/types';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const articleTypeOptions = [
   { text: 'Draft', value: 'draft' },
@@ -27,8 +28,9 @@ export const ArticleCreationForm = () => {
     reset,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<CreateArticleForm>({
-    resolver: zodResolver(CreateArticleFormSchema),
+  } = useForm<CreateArticle>({
+    // resolver: zodResolver(CreateArticleFormSchema),
+    resolver: yupResolver(CreateArticleFormSchemaYup),
     defaultValues: {
       content: { type: 'draft' },
     },
