@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import styles from './error.module.scss';
 
-interface ErrorProps {
-  message: string | null;
+type ErrorProps = {
+  message: string | null | undefined;
   isVisible: boolean;
-}
+};
 
 export const Error = ({ message, isVisible }: ErrorProps) => {
   return (
@@ -15,4 +15,3 @@ export const Error = ({ message, isVisible }: ErrorProps) => {
     </div>
   );
 };
-

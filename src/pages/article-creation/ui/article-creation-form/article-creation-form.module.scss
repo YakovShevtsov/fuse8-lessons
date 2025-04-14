@@ -1,0 +1,22 @@
+@use '@shared/styles/mixins' as *;
+
+.article-is-new {
+  align-self: flex-start;
+  @include flex-center(row, 12px);
+}
+
+.create-article-form {
+  max-width: 450px;
+  margin-top: 24px;
+  margin-right: auto;
+  margin-left: auto;
+  @include flex-center(column, 16px, stretch);
+}
+
+.input-wrapper {
+  @include flex-center(column, 8px, stretch);
+}
+
+.article-description-textarea {
+  resize: vertical;
+}
