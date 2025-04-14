@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router';
-import { routes } from '@shared/services/routes';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { articleAPI } from '@entities/article/model/article-api';
 import { Error } from '@shared/ui/error/error';
 import { Select } from '@shared/ui/select/select';
 // import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@shared/ui/button/button';
 import { Input } from '@shared/ui/input/input';
 import { Controller, useForm } from 'react-hook-form';
-import { CreateArticleForm, CreateArticleFormSchemaYup } from './form-schema';
+import {
+  CreateArticleFormSchemaYup,
+  CreateArticleFormYup,
+} from './form-schema';
 import styles from './article-creation-form.module.scss';
-import { Article, CreateArticle } from '@entities/article/model/types';
+// import { CreateArticle } from '@entities/article/model/types';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useCreateArticle } from '@entities/article/hooks/use-create-article';
 
 const articleTypeOptions = [
   { text: 'Draft', value: 'draft' },
@@ -19,7 +20,6 @@ const articleTypeOptions = [
 ];
 
 export const ArticleCreationForm = () => {
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const {
     register,
@@ -28,7 +28,7 @@ export const ArticleCreationForm = () => {
     reset,
     control,
     formState: { errors, isSubmitting },
-  } = useForm<CreateArticle>({
+  } = useForm<CreateArticleFormYup>({
     // resolver: zodResolver(CreateArticleFormSchema),
     resolver: yupResolver(CreateArticleFormSchemaYup),
     defaultValues: {
@@ -38,32 +38,10 @@ export const ArticleCreationForm = () => {
 
   const contentType = watch('content.type');
 
-  const { mutate, status } = useMutation({
-    mutationFn: articleAPI.createArticle,
-    onSuccess: (data) => {
-      queryClient.setQueryData<Article[]>(['fetch-articles'], (oldArticles) => {
-        if (!oldArticles) return [data];
-        return [data, ...oldArticles];
-      });
-      reset();
-      navigate(routes.articles.pathname);
-
-      queryClient.invalidateQueries({ queryKey: ['fetch-articles'] });
-    },
-  });
-
-  const handleCreateArticle = handleSubmit((data: CreateArticleForm) => {
-    mutate({
-      title: data.title,
-      content:
-        data.content.type === 'draft'
-          ? { type: 'draft' }
-          : {
-              type: 'published',
-              description: data.content.description,
-              isNew: data.content.isNew ?? false,
-            },
-    });
+  const { handleCreateArticle, status } = useCreateArticle({
+    handleSubmit,
+    navigate,
+    reset,
   });
 
   return (
@@ -111,6 +89,22 @@ export const ArticleCreationForm = () => {
               </div>
             )}
           />
+          
+          // NOT WORKING
+
+          // <div className={styles['input-wrapper']}>
+          //   <Input
+          //     textarea
+          //     placeholder="Описание"
+          //     rows={5}
+          //     {...register('content.description')}
+          //     className={styles['article-description-textarea']}
+          //     disabled={isSubmitting}
+          //   />
+          //   {errors.content && 'description' in errors.content &&  (
+          //     <Error isVisible={true} message={errors.content.description} />
+          //   )}
+          // </div>
         )}
 
         <Select options={articleTypeOptions} {...register('content.type')} />

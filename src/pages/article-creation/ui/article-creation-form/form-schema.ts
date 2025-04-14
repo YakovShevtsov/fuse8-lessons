@@ -28,7 +28,7 @@ export const CreateArticleFormSchemaYup: yup.ObjectSchema<CreateArticle> =
   yup.object({
     title: yup
       .string()
-      .required()
+      .required('Название обязательно')
       .min(1, 'Минимальная длина названия - 1 символ')
       .max(100, 'Максимальная длина названия - 100 символов'),
     content: yup.object({
@@ -37,7 +37,7 @@ export const CreateArticleFormSchemaYup: yup.ObjectSchema<CreateArticle> =
         .string()
         .max(1000, 'Максимальная длина описания - 1000 символов')
         .min(10, 'Минимальная длина описания - 10 символов')
-        .required()
+        .required('Описание обязательно')
         .when('type', {
           is: 'draft',
           then: (schema) => schema.notRequired().strip(),
@@ -52,3 +52,7 @@ export const CreateArticleFormSchemaYup: yup.ObjectSchema<CreateArticle> =
         }),
     }),
   });
+
+// eslint-disable-next-line
+export interface CreateArticleFormYup
+  extends yup.InferType<typeof CreateArticleFormSchemaYup> {}
